@@ -66,7 +66,15 @@ defmodule Template176Web.Router do
 
     live_session :require_authenticated_user,
       on_mount: [{Template176Web.UserAuth, :ensure_authenticated}] do
+      live "/orders", OrderLive.Index, :index
+      live "/orders/new", OrderLive.Index, :new
+      live "/orders/:id/edit", OrderLive.Index, :edit
+
+      live "/orders/:id", OrderLive.Show, :show
+      live "/orders/:id/show/edit", OrderLive.Show, :edit
+
       resources "/products", ProductController
+
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
     end
